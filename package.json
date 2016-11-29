@@ -1,8 +1,12 @@
 {
   "name": "socket-chat-example",
   "version": "0.0.1",
-  "description": "my first socket.io app",
-  "dependencies": {
+  "description": "A clean, simple chat application for edumacational purposes using node.js and socket.io for communication — Edit
+",
+  "repository" : "https://github.com/Razpudding/socketio-chat-app",
+  "bugs" : "https://github.com/Razpudding/socketio-chat-app/issues",
+  "author" : "Laurens Aarnoudse <laurens.aarnoudse@gmail.com>",
+  "dependencies" : {
     "express": "^4.14.0"
   }
 }

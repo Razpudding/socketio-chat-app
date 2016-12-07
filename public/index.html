@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <title>Socket.IO chat example</title>
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+
+<body>
+  <ul id="messages"></ul>
+  <form action="" >
+    <input id="m" autofocus autocomplete="off" /><button>Send</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js">//grmbl why even load jQuery here</script>
+  <script>
+    //Ugh inline code
+    var socket = io();
+    $('form').submit(function(){
+      var msg = $('#m').val();
+      console.log("submitting to server and adding message optimistically")
+      $('#messages').append($('<li class="self">').text(msg));
+      socket.emit('chat message', msg);
+      $('#m').val('');
+      return false;
+    });
+
+    socket.on('chat message', function(msg){
+      console.log("new message detected");
+      $('#messages').append($('<li>').text(msg));
+
+    });
+    socket.on('newUser', function(msg){
+      console.log("new user detected");
+      $('#messages').append($('<li>').text(msg));
+    });
+
+  </script>
+</body>
+</html>

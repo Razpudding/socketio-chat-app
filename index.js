@@ -9,15 +9,15 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function(socket){
   console.log('a user connected');
 
-  socket.broadcast.emit('hi'); //I cant find the result of this anywhere in the app
-  socket.broadcast.emit('user connected');
+  socket.broadcast.emit('newUser', socket.id); //I cant find the result of this anywhere in the app
+  
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
 
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    socket.broadcast.emit('chat message', msg);
   });
 });
 

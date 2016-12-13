@@ -1,7 +1,17 @@
+/*
+This code is adapted from the socket.io example: http://socket.io/get-started/chat/
+TODO:
+Broadcast a message to connected users when someone connects or disconnects
+Add support for nicknames
+Don’t send the same message to the user that sent it himself. Instead, append the message directly as soon as he presses enter.
+Add “{user} is typing” functionality
+Show who’s online
+Add private messaging
+*/
+
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-
 var io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/public'));
@@ -9,8 +19,14 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function(socket){
   console.log('a user connected');
 
-  socket.broadcast.emit('newUser', socket.id); //I cant find the result of this anywhere in the app
+  socket.broadcast.emit('newUser', socket.id); //Change this later to emit the username also add message when someone leaves
   
+  socket.on('setUserName', function(name){
+    console.log("detected new username");
+    socket.username = name;
+    socket.broadcast.emit('newName', socket.id, socket.username); 
+  });
+
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });

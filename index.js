@@ -5,19 +5,20 @@ v Broadcast a message to connected users when someone connects or disconnects
 V Add support for nicknames
 V Don’t send the same message to the user that sent it himself. Instead, append the message directly as soon as he presses enter.
 Add private messaging
-Keep a record of all the words used, make common words appear smaller or not at all to inspire original language
+V Keep a record of all the words used, make common words appear smaller or not at all to inspire original language
 Show who’s online
 Kicking users?
 Highlight server messages a different way, maybe outline right as well?
-(can prob use this: http://stackoverflow.com/questions/26485729/how-can-i-color-specific-letters-in-html-element-text)
-Call this app: Tragedy of the commons
+Call this app: Tragedy of the commons (also words like the and it should be not included)
+Add autoscroll
 */
 
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var dictionary = {};
+var dictionary = {
+};
 
 app.use(express.static(__dirname + '/public'));
 //When a new client connects
@@ -43,14 +44,14 @@ io.on('connection', function(socket){
     //console.log('user disconnected', socket.username);
   });
 });
-//move to own file/ class
+//TODO: move to own file/ class
 //PAttern: constructor class library with add function and get set
 //Make sure the array is sorted to have most common at the top so the compare is more effective
 function index(msg, senderId){
   console.log("index called with: " + msg);
-  msg = msg.replace(/[^\w\s]|_/g, "") //This nice little regex came from this post and was written bij John Kugelman http://stackoverflow.com/questions/4328500/how-can-i-strip-all-punctuation-from-a-string-in-javascript-using-regex
+  var cleanMsg = msg.replace(/[^\w\s]|_/g, "") //This nice little regex came from this post and was written bij John Kugelman http://stackoverflow.com/questions/4328500/how-can-i-strip-all-punctuation-from-a-string-in-javascript-using-regex
          .replace(/\s+/g, " ");
-  var newWords = msg.split(" ");
+  var newWords = cleanMsg.split(" ");
   for (i in newWords){
       if (!dictionary.hasOwnProperty(newWords[i])){
         dictionary[newWords[i]] = 0;
@@ -58,8 +59,8 @@ function index(msg, senderId){
       dictionary[newWords[i]] ++;
   }
   io.sockets.emit('update dic', dictionary);
-  console.log("dictionary now contains: ");
-  console.log(dictionary);
+  //console.log("dictionary now contains: ");
+  //console.log(dictionary);
   io.sockets.emit('chat message', msg, senderId);
 }
 

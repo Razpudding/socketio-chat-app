@@ -13,11 +13,9 @@
  /* God I suck at CSS, how difficult is it to position an input field
  and a goddamn span in the middle of the page. IS this why people put everythng
  in separate div containers? */
- .overlay input { margin: 50%; }
+ .overlay input { margin: 20%; }
  .overlay span { 
- 	display: inline-block;
- 	text-align: center;
- 	width: 100%;
+	padding-left: 1em;
  	font-family: "Open Sans";
  	color: white;
  	font-size: 3em;
@@ -29,5 +27,32 @@
  #messages li:nth-child(odd) { background: grey; }
  #messages li.self {color:white; background: purple;}
 .common-1{
-	color: goldenrod;
+	color: rgba(0,0,0,.9);
+}
+.common-2{
+	color: rgba(0,0,0,.8);
+}
+.common-3{
+	color: rgba(0,0,0,.7);
+}
+.common-4{
+	color: rgba(0,0,0,.6);
+}
+.common-5{
+	color: rgba(0,0,0,.5);
+}
+.common-6{
+	color: rgba(0,0,0,.4);
+}
+.common-7{
+	color: rgba(0,0,0,.3);
+}
+.common-8{
+	color: rgba(0,0,0,.2);
+}
+.common-9{
+	color: rgba(0,0,0,.1);
+}
+.common-10{
+	color: rgba(0,0,0,.0);
 }

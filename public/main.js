@@ -67,11 +67,13 @@ function highlighter()
 {
   console.log("running highlighter");
   var lastMessage = document.getElementById('messages').lastChild;
+  //You have to clean up the string here as well
+  
   var text = lastMessage.innerHTML.split(' ').map(function(el) {
     console.log(el);
     console.log(dictionary);
     console.log(dictionary[el]);
-        return '<span class="common-' + dictionary[el] + '">' + el + '</span>';
+        return '<span class="common-' + (dictionary[el] > 9? 10: dictionary[el]) + '">' + el + '</span>';
     }).join(' ');
   
   lastMessage.innerHTML = text;

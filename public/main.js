@@ -1,14 +1,19 @@
 var socket = io();
 var userName;
 var myId;
+var dictionary;
 window.addEventListener('keydown',this.keyDown,false);
 
+//Make it not be optimistic, wont work with highlighting common words
 $('#messageInput').submit(function(){
   var msg = $('#m').val();
-  console.log("submitting to server and adding message optimistically");
-  $('#messages').append($('<li class="self">').text(msg));
-  socket.emit('chat message', msg);
-  $('#m').val('');
+  if (msg !== ""){
+    //console.log("submitting to server and adding message optimistically");
+    //$('#messages').append($('<li class="self">').text(msg));
+    socket.emit('chat message', msg);
+    $('#m').val('');
+    //highlighter();
+  }
   return false;
 });
 
@@ -18,10 +23,23 @@ socket.on('connect', function(){
   myId = socket.io.engine.id;
 });
 
+socket.on('initial dic', function(dic){
+  console.log("Receiving initial dictionary");
+  dictionary = dic;
+  console.log(dictionary);
+});
+
+socket.on('update dic', function(dic){
+  console.log("Receiving update to dictionary");
+  dictionary = dic;
+  console.log(dictionary);
+});
+
 //When receiving a chat message from another user, show it in the DOM
-socket.on('chat message', function(msg){
-  console.log("new message detected");
-  $('#messages').append($('<li>').text(msg));
+socket.on('chat message', function(msg, id){
+  console.log("new message detected:" + msg);
+  $('#messages').append($('<li class="'+ (id== myId? "self":"")+ '">').text(msg));
+  highlighter();
 });
 //When receiving a new user event, print the user ID to the console (remove later)
 socket.on('newUser', function(id){
@@ -35,14 +53,29 @@ socket.on('newName', function(id, name){
   {
     console.log("a girl has a name");
     userName = name;
+    $('#messages').append($('<li>').text("Welcome " + userName + ". Remember, anything you see can and will be used against you."));
   }
-  //else {  $('#messages').append($('<li>').text(msg)); }
+  else {  $('#messages').append($('<li>').text(name + " just joined the chatroom")); }
 });
 
 socket.on('userLeft', function(name){
   console.log("user disconnected" + name);
   $('#messages').append($('<li>').text(name + " has left the building"));
 });
+
+function highlighter()
+{
+  console.log("running highlighter");
+  var lastMessage = document.getElementById('messages').lastChild;
+  var text = lastMessage.innerHTML.split(' ').map(function(el) {
+    console.log(el);
+    console.log(dictionary);
+    console.log(dictionary[el]);
+        return '<span class="common-' + dictionary[el] + '">' + el + '</span>';
+    }).join(' ');
+  
+  lastMessage.innerHTML = text;
+}
 
 //Key listener to listen to enter event. Is now used to send the username and later to send messages as well
 function keyDown(event) {

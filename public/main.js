@@ -53,7 +53,7 @@ socket.on('newName', function(id, name){
   {
     console.log("a girl has a name");
     userName = name;
-    $('#messages').append($('<li>').text("Welcome " + userName + ". Remember, anything you see can and will be used against you."));
+    $('#messages').append($('<li>').text("Welcome " + userName + ". Remember, anything you say can and will be used against you."));
   }
   else {  $('#messages').append($('<li>').text(name + " just joined the chatroom")); }
 });
@@ -68,7 +68,7 @@ function highlighter()
   console.log("running highlighter");
   var lastMessage = document.getElementById('messages').lastChild;
   //You have to clean up the string here as well
-  
+
   var text = lastMessage.innerHTML.split(' ').map(function(el) {
     console.log(el);
     console.log(dictionary);

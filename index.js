@@ -1,16 +1,10 @@
 /*
 This code is adapted from the socket.io example: http://socket.io/get-started/chat/
 TODO:
-v Broadcast a message to connected users when someone connects or disconnects
-V Add support for nicknames
-V Don’t send the same message to the user that sent it himself. Instead, append the message directly as soon as he presses enter.
-Add private messaging
-V Keep a record of all the words used, make common words appear smaller or not at all to inspire original language
-Show who’s online
 Kicking users?
 Highlight server messages a different way, maybe outline right as well?
 Call this app: Tragedy of the commons (also words like the and it should be not included)
-Add autoscroll
+Add autoscroll (http://stackoverflow.com/questions/23612704/jquery-auto-scroll-where-the-current-li-is)
 lowercase all entries into the dictionary
 */
 

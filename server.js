@@ -6,13 +6,13 @@ Highlight server messages a different way, maybe outline right as well?
 Call this app: Tragedy of the commons (also words like the and it should be not included)
 Add autoscroll (http://stackoverflow.com/questions/23612704/jquery-auto-scroll-where-the-current-li-is)
 lowercase all entries into the dictionary
+Styling: Add filt/felt? feeling to the splash page a la: http://overapi.com/nodejs
 */
 
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-//Modelled after: http://kevgriffin.com/node-js-using-require-to-load-your-own-files/
 var dictionary = require("./dictionary.js");  //My own dictionary module
 var myDictionary = new dictionary();          //Make an instance of this module
 
@@ -24,8 +24,7 @@ io.on('connection', function(socket){
 
   socket.broadcast.emit('newUser', socket.id); 
   
-  socket.on('setUserName', function(name){// Change to emit to all
-    //console.log("detected new username");
+  socket.on('setUserName', function(name){
     socket.username = name;
     io.sockets.emit('newName', socket.id, socket.username); //Sends message to all sockets
   }); 
@@ -35,7 +34,6 @@ io.on('connection', function(socket){
     myDictionary.addWords(msg);
     io.sockets.emit('update dic', myDictionary.get());
     //console.log("dictionary now contains: ");
-    //console.log(dictionary);
     io.sockets.emit('chat message', msg, socket.id);
   });
 

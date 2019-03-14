@@ -1,6 +1,6 @@
 # Tragedy of the commons chat app
 
-[Link to live demo](https://socket-chat-example-bsrfoaihcx.now.sh/)
+[Link to live demo](https://socketio-chat-app-sxszsixjmq.now.sh/)
 
 A chat app built using the socket.io library that fades out words as they beome more common within the app, forcing users to use original language and to expand their vocabulary. If they don't, their words become void of color.
 

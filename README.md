@@ -1,6 +1,8 @@
 # Tragedy of the commons chat app
 
-A chat app built using the socket.io library that fades out words as they beome more common within the app, forcing users to use original language and to expand their vocabulary. If they don't, their words become void of color, like the meaningless day-to-day chatter is void of meaning.
+[Link to live demo](https://socket-chat-example-bsrfoaihcx.now.sh/)
+
+A chat app built using the socket.io library that fades out words as they beome more common within the app, forcing users to use original language and to expand their vocabulary. If they don't, their words become void of color.
 
 This repo serves as the basis for an educational tool designed to teach students about realtime web application development.
 
@@ -14,3 +16,4 @@ Feature wishlist:
 * a gamification element that either rewards or punishes users based on their originality
 * Difficulty settings (hardcore is limit a word to 3 uses for instance)
 * A list of exceptions for Dutch and English for words that are critical and irreplacable (like 'it')
+* Remove jquery
